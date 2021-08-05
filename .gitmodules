@@ -1,0 +1,3 @@
+[submodule "recommend"]
+	path = recommend
+	url = http://github.com/xissy/node-recommend.git
