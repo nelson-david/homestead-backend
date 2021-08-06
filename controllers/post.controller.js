@@ -57,6 +57,7 @@ module.exports = {
 		if (req.files){
 			const fileKeys = req.files['files'];
 			post_type = 'text_image';
+			console.log("Files: ", fileKeys)
 			fileKeys.map(function(photo){
 				photo.mv('./assets/img/' + photo.name);
 				photo_data.push({
@@ -82,6 +83,7 @@ module.exports = {
 				date_joined: res.user.date_joined,
 			}
 		});
+		console.log("Added Post...")
 		await new_post.save();
 		return res.json({"message": "success"});
 	}
