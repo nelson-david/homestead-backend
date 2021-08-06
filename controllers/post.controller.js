@@ -57,6 +57,7 @@ module.exports = {
 		if (req.files){
 			const fileKeys = req.files['files'];
 			post_type = 'text_image';
+			console.log("File Keys", fileKeys);
 			fileKeys.map(function(photo){
 				photo.mv('./assets/img/' + photo.name);
 				photo_data.push({
