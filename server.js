@@ -38,6 +38,6 @@ const options = {
 };
 
 app.listen(`${stage.port}`, async () => {
-	await mongoose.connect(stage.mongoURL, options)
+	await mongoose.connect(stage.atlasURL, options)
 	console.log(`App running on PORT: ${stage.port}`);
 });
