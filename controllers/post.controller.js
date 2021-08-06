@@ -57,14 +57,21 @@ module.exports = {
 		if (req.files){
 			const fileKeys = req.files['files'];
 			post_type = 'text_image';
-			console.log("Files: ", fileKeys)
-			fileKeys.map(function(photo){
-				photo.mv('./assets/img/' + photo.name);
-				photo_data.push({
-					name: photo.name,
-					size: photo.size
+			if (fileKeys.length != undefined){
+				fileKeys.map(function(photo){
+					photo.mv('./assets/img/' + photo.name);
+					photo_data.push({
+						name: photo.name,
+						size: photo.size
+					});
 				});
-			});
+			}else{
+				fileKeys.mv('./assets/img/' + fileKeys.name);
+				photo_data.push({
+					name: fileKeys.name,
+					size: fileKeys.size
+				});
+			}
 		}
 		const new_post = new Post({
 			body: data['body'],
