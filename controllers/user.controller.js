@@ -13,5 +13,15 @@ module.exports = {
 				return res.json({message:false});
 			}
 		});
+	},
+	single_user: (req, res) => {
+		User.findOne({'username':req.params.username}, async(err, user) => {
+			if (!err && user){
+				user.password = undefined
+				return res.json({message:true, user:user});
+			}else{
+				return res.json({message:false});
+			}
+		});	
 	}
 }

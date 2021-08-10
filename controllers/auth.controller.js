@@ -38,10 +38,10 @@ module.exports = {
 	},
 	login_user: (req, res) => {
 		data = req.body;
-		console.log(data);
 		User.findOne({'username':data.username}, async(err, user) => {
 			if (!err && user){
-				await bcrypt.compare(req.body.password, user.password, (err, check) => {
+				await bcrypt.compare(req.body.password, user.password, 
+					(err, check) => {
 					if (!err && check){
 						const auth_user = {
 							username: user.username,
@@ -56,7 +56,9 @@ module.exports = {
 							location: user.location
 						}
 						const token = genAccessToken(auth_user);
-						return res.json({message:true, 'token':token, 'user':auth_user});
+						return res.json({
+							message:true, 'token':token, 'user':auth_user
+						});
 					}else{
 						return res.json({message:"password_error"})
 					}

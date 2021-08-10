@@ -28,6 +28,7 @@ router.post("/auth/login/", auth_controller.login_user);
 
 // User Route
 router.get("/current_user/", authToken, user_controller.current_user);
+router.get("/user/:username/get/", authToken, user_controller.single_user);
 
 // Post Route
 router.post("/post/add/", authToken, post_controller.add_post);

@@ -4,7 +4,6 @@ const randomid = require("randomid");
 
 module.exports = {
 	like_post: (req, res) => {
-		console.log(req.params.id);
 		Post.findOne({'_id':req.params.id}, async(err, post) => {
 			if (!err && post){
 				post.likes.push({
@@ -28,7 +27,6 @@ module.exports = {
 	unlike_post: (req, res) => {
 		Post.findOne({'_id':req.params.id}, async(err, post) => {
 			if (!err && post){
-				console.log(post.likes);
 				return res.json({"message":"success"});
 			}else{
 				return res.json({message:false});
@@ -90,7 +88,6 @@ module.exports = {
 				date_joined: res.user.date_joined,
 			}
 		});
-		console.log("Added Post...")
 		await new_post.save();
 		return res.json({"message": "success"});
 	}
