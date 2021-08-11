@@ -3,6 +3,16 @@ const User = require("../models/users.model");
 const randomid = require("randomid");
 
 module.exports = {
+	delete_post: (req, res) => {
+		console.log("Reached Here...");
+		Post.findOneAndDelete({'_id':req.params.id}, async(err) => {
+			if (!err){
+				return res.json({"message":"success"});
+			}else{
+				return res.json({message:false});
+			}
+		});		
+	},
 	like_post: (req, res) => {
 		Post.findOne({'_id':req.params.id}, async(err, post) => {
 			if (!err && post){

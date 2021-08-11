@@ -35,6 +35,7 @@ router.post("/post/add/", authToken, post_controller.add_post);
 router.get("/post/all/", authToken, post_controller.all_post);
 
 router.get("/post/:id/get/", authToken, post_controller.single_post);
+router.post("/post/:id/delete/", authToken, post_controller.delete_post);
 
 router.put("/post/:id/likes/add/", authToken, post_controller.like_post);
 router.put("/post/:id/likes/remove/", authToken, post_controller.unlike_post);

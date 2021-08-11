@@ -36,8 +36,8 @@ const options = {
 	useUnifiedTopology:  true,
 	useFindAndModify: false
 };
-//mongoURL
+//atlasURL
 app.listen(`${stage.port}`, async () => {
-	await mongoose.connect(stage.atlasURL, options)
+	await mongoose.connect(stage.mongoURL, options)
 	console.log(`App running on PORT: ${stage.port}`);
 });
