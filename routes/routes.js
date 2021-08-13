@@ -2,11 +2,15 @@ const express = require("express");
 const router = express.Router();
 const stage = require("../config")["development"];
 const jwt = require("jsonwebtoken");
+const apicache = require("apicache");
+
+let cache = apicache.middleware
 
 const auth_controller = require("../controllers/auth.controller");
 const user_controller = require("../controllers/user.controller");
 const post_controller = require("../controllers/post.controller");
 const comment_controller = require("../controllers/comment.controller");
+const search_controller = require("../controllers/search.controller");
 
 const authToken = (req, res, next) => {
 	var token = req.headers['authorization'];
@@ -22,9 +26,16 @@ router.get("/home/", (req, res) => {
 	return res.json({"message":"Welcome To The App Mate"})
 });
 
+router.get("/save_cache/", cache('5 minutes'), (req, res) => {
+	return res.json({ foo: 'bar' })
+})
+
 // Authentication Route
 router.post("/auth/register/", auth_controller.add_user);
 router.post("/auth/login/", auth_controller.login_user);
+
+//Search Route
+router.get("/search/:data/", search_controller.search);
 
 // User Route
 router.get("/current_user/", authToken, user_controller.current_user);

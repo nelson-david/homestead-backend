@@ -95,6 +95,7 @@ module.exports = {
 				username: res.user.username,
 				profile_picture: res.user.profile_picture,
 				dob: res.user.dob,
+				verified: res.user.verified,
 				date_joined: res.user.date_joined,
 			}
 		});

@@ -14,7 +14,8 @@ const user = new Schema({
 	followed: Array,
 	followers: Array,
 	location: String,
-	blocked: Array
+	blocked: Array,
+	verified: Boolean,
 },{
 	capped: { size: 1024 },
 	bufferCommands: false,

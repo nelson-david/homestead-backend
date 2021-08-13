@@ -22,7 +22,8 @@ module.exports = {
 					profile_picture: "default.webp",
 					date_joined: new Date().toISOString(),
 					password: await bcrypt.hash(req.body.password, 8),
-					dob: data.dob
+					dob: data.dob,
+					verified: false,
 				});
 				await new_user.save((err, user) => {
 					if (!err){
@@ -53,7 +54,8 @@ module.exports = {
 							profile_picture: user.profile_picture,
 							date_joined: user.date_joined,
 							dob: user.dob,
-							location: user.location
+							location: user.location,
+							verified: user.verified
 						}
 						const token = genAccessToken(auth_user);
 						return res.json({
