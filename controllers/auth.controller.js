@@ -1,41 +1,28 @@
-const User = require("../models/users.model");
-const bcrypt = require("bcryptjs");
+const database = require("../database/database");
 const jwt = require('jsonwebtoken');
 const stage = require("../config")["development"];
 const randomid = require('randomid');
 
-const genAccessToken = (email) => {
-	return jwt.sign(email, stage.TOKEN_SECRET);
+const genAccessToken = (username) => {
+	return jwt.sign(username, stage.TOKEN_SECRET);
 }
 
 module.exports = {
-	add_user: (req, res) => {
+	add_user: async(req, res) => {
 		const data = req.body;
-		User.findOne({'email': data.email}, async (err, user) => {
-			if (err) throw err;
-			if (user) res.json({message:"exists"});
-			if (!user){
-				const new_user = new User({
-					username: data.username,
-					age: data.age,
-					email: data.email,
-					profile_picture: "default.webp",
-					date_joined: new Date().toISOString(),
-					password: await bcrypt.hash(req.body.password, 8),
-					dob: data.dob,
-					verified: false,
-				});
-				await new_user.save((err, user) => {
-					if (!err){
-						new_user.save();
-						return res.json({
-							message: true,
-							info:"Successfully Saved"
-						});
-					}
-				});
+
+		try{
+			const user = await database.getUser(data.username);
+			if (user){
+				res.status(400).send({error:"user already exists"})
+				return;
 			}
-		});
+			const userId = await database.createUser(data)
+			res.send({userId})
+		}catch (error){
+			res.sendStatus(500);
+			return;
+		}
 	},
 	login_user: (req, res) => {
 		data = req.body;

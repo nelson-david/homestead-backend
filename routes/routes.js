@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router();
+
 const stage = require("../config")["development"];
 const jwt = require("jsonwebtoken");
-const apicache = require("apicache");
-
-let cache = apicache.middleware
 
 const auth_controller = require("../controllers/auth.controller");
 const user_controller = require("../controllers/user.controller");
@@ -26,10 +24,6 @@ router.get("/home/", (req, res) => {
 	return res.json({"message":"Welcome To The App Mate"})
 });
 
-router.get("/save_cache/", cache('5 minutes'), (req, res) => {
-	return res.json({ foo: 'bar' })
-})
-
 // Authentication Route
 router.post("/auth/register/", auth_controller.add_user);
 router.post("/auth/login/", auth_controller.login_user);
@@ -40,6 +34,7 @@ router.get("/search/:data/", search_controller.search);
 // User Route
 router.get("/current_user/", authToken, user_controller.current_user);
 router.get("/user/:username/get/", authToken, user_controller.single_user);
+router.post("/user/:username/settings/general", authToken, user_controller.general_settings);
 
 // Post Route
 router.post("/post/add/", authToken, post_controller.add_post);
@@ -56,6 +51,5 @@ router.get("/post/:id/comment/get/", authToken, comment_controller.get_comment);
 router.put("/post/:id/comment/add/", authToken, comment_controller.add_comment);
 router.put("/post/:id/comment/:comment_id/like/", 
 	authToken, comment_controller.like_comment);
-
 
 module.exports = router;

@@ -67,9 +67,11 @@ module.exports = {
 			post_type = 'text_image';
 			if (fileKeys.length != undefined){
 				fileKeys.map(function(photo){
-					photo.mv('./assets/img/' + photo.name);
+					const photo_id = `${randomid(4)}.${photo.name.split('.') 
+						[photo.name.split('.').length-1]}`;
+					photo.mv('./assets/img/' + photo_id);
 					photo_data.push({
-						name: photo.name,
+						name: photo_id,
 						size: photo.size
 					});
 				});

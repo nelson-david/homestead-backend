@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest ./test/api/**/*.test.js",
     "start": "node server",
     "start_dev": "nodemon server"
   },
@@ -24,25 +24,31 @@
     "express-mquery": "^1.3.0",
     "express-query-params": "^1.2.0",
     "express-search": "^0.0.81",
+    "faker": "^5.5.3",
     "jest": "^27.0.6",
     "jsonwebtoken": "^8.5.1",
-    "mocha": "^9.0.3",
+    "mockgoose": "^8.0.4",
     "mongoose": "^5.13.3",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "node-cache": "^5.1.2",
     "node-cron": "^3.0.0",
     "nodemailer": "^6.6.3",
+    "nyc": "^15.1.0",
     "pm": "^2.2.6",
     "pure-cache": "^1.0.6",
     "randomid": "^1.1.0",
     "redis": "^3.1.2",
     "sharp": "^0.28.3",
+    "sinon": "^11.1.2",
     "socket.io": "^4.1.3",
+    "supertest": "^6.1.5",
     "webp-converter": "^2.3.3",
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.0.3",
     "nodemon": "^2.0.12"
   }
 }
