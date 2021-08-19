@@ -1,18 +1,5 @@
-const User = require("../models/users.model");
-const bcrypt = require("bcryptjs");
-const jwt = require('jsonwebtoken');
-const stage = require("../config")["development"];
 const randomid = require('randomid');
-
-const check_username = (username, current_user) => {
-	User.findOne({'username':username}, async(err, user) => {
-		if (!err && user){
-			console.log("user: ", user);
-		}else{
-			return "Failed"
-		}
-	})
-}
+const database = require("../database/database");
 
 module.exports = {
 	general_settings: (req, res) => {
@@ -46,24 +33,29 @@ module.exports = {
 			}
 		})
 	},
-	current_user: (req, res) => {
-		User.findOne({'_id':res.user._id}, async(err, user) => {
-			if (!err && user){
+	current_user: async(req, res) => {
+		try{
+			const user = await database.getUser(res.user.username);
+			if (user){
 				user.password = undefined;
-				return res.json({'user':user});
-			}else{
-				return res.json({message:false});
+				return res.json({ 'user': user });
 			}
-		});
+		}catch(error){
+			res.sendStatus(500);
+			return;
+		}
 	},
-	single_user: (req, res) => {
-		User.findOne({'username':req.params.username}, async(err, user) => {
-			if (!err && user){
-				user.password = undefined
-				return res.json({message:true, user:user});
-			}else{
-				return res.json({message:false});
+	single_user: async(req, res) => {
+		try{
+			const user = await database.getUser(req.params.username);
+			if (user){
+				user.password = undefined;
+				return res.status(200).send({user:user});
 			}
-		});	
+			return res.status(400).send({message:"user not found"});
+		}catch(error){
+			res.sendStatus(500);
+			return;
+		}
 	}
 }

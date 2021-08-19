@@ -1,6 +1,9 @@
-const app = require("./app");
+const database = require("./database/database");
+const makeApp = require("./app");
+const app = makeApp(database);
 const mongoose = require("mongoose");
-const stage = require("./config")["development"];
+const stage = require("./config")["production"];
+
 
 app.listen(`${stage.port}`, async () => {
 	await mongoose.connect(stage.dbURL, stage.options)
