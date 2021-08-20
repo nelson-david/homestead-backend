@@ -14,7 +14,7 @@ module.exports = {
 	production: {
 		environment: "production",
 		port: process.env.PORT || 7500,
-		origin: "https://brave-hopper-6e87df.netlify.app",
+		origin: "https://homestead-singles.netlify.app/",
 		dbURL: "mongodb+srv://DavidNelson:xCrNyznFBvl3fnM1@homestead-db.gjiqg.mongodb.net/homesteadapi-db?retryWrites=true&w=majority",
 		TOKEN_SECRET: 'dkngfngngg',
 		options: {
