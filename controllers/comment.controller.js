@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const stage = require("../config")["production"];
 const randomid = require('randomid');
 const database = require("../database/database");
 

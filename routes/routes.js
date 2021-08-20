@@ -1,6 +1,4 @@
 const express = require("express");
-
-const stage = require("../config")["development"];
 const jwt = require("jsonwebtoken");
 
 const auth_controller = require("../controllers/auth.controller");
@@ -10,13 +8,13 @@ const comment_controller = require("../controllers/comment.controller");
 const search_controller = require("../controllers/search.controller");
 const app = require("../app");
 
-const appRoute = (database) => {
+const appRoute = (database, config) => {
 	const router = express.Router();
 
 	const authToken = (req, res, next) => {
 		var token = req.headers['authorization'];
 		if (token == null) return res.sendStatus(401);
-		jwt.verify(token, stage.TOKEN_SECRET, (err, user) => {
+		jwt.verify(token, config.TOKEN_SECRET, (err, user) => {
 			if (err) return res.sendStatus(403)
 			res.user = user;
 			next();

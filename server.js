@@ -1,11 +1,11 @@
 const database = require("./database/database");
+const config = require("./config")["production"];
 const makeApp = require("./app");
-const app = makeApp(database);
+const app = makeApp(database, config);
 const mongoose = require("mongoose");
-const stage = require("./config")["production"];
 
 
-app.listen(`${stage.port}`, async () => {
-	await mongoose.connect(stage.dbURL, stage.options)
-	console.log(`App running on PORT: ${stage.port}`);
+app.listen(`${config.port}`, async () => {
+	await mongoose.connect(config.dbURL, config.options)
+	console.log(`App running on PORT: ${config.port}`);
 });

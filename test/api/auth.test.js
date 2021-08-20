@@ -1,7 +1,8 @@
 const request = require("supertest");
 const database = require("../../database/database");
+const config = require("../../config")["development"];
 const makeApp = require("../../app.js");
-const app = makeApp(database);
+const app = makeApp(database, config);
 
 const mongoose = require("mongoose");
 const randomid = require("randomid");

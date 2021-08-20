@@ -1,15 +1,16 @@
 const jwt = require('jsonwebtoken');
-const stage = require("../config")["production"];
 const randomid = require('randomid');
 const database = require("../database/database");
 
-const genAccessToken = async(user) => {
-	return jwt.sign(user, stage.TOKEN_SECRET);
+const genAccessToken = async(user, token) => {
+	return jwt.sign(user, token);
 }
 
 module.exports = {
 	add_user: async(req, res) => {
 		const data = req.body;
+		console.log("Data:", data);
+		
 		try{
 			const user = await database.getUser(data.username);
 			if (user){
@@ -32,7 +33,7 @@ module.exports = {
 				if (check){
 					const token = await genAccessToken({
 						_id: user._id, email: user.email, username: user.username
-					});
+					}, res.config.TOKEN_SECRET);
 					res.send({message: true, 'token': token, 'user': user})
 					return;
 				}
