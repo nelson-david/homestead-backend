@@ -6,7 +6,6 @@ const user_controller = require("../controllers/user.controller");
 const post_controller = require("../controllers/post.controller");
 const comment_controller = require("../controllers/comment.controller");
 const search_controller = require("../controllers/search.controller");
-const app = require("../app");
 
 const appRoute = (database, config) => {
 	const router = express.Router();
