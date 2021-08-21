@@ -3,6 +3,7 @@ const randomid = require('randomid');
 const database = require("../database/database");
 
 const genAccessToken = async(user, token) => {
+	console.log("Token: ", token)
 	return jwt.sign(user, token);
 }
 
