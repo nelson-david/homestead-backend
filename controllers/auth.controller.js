@@ -9,13 +9,18 @@ const genAccessToken = async(user, token) => {
 
 module.exports = {
 	add_user: async(req, res) => {
-		const data = req.body;
-		console.log("Data:", data);
-		
+		const data = {
+			email: req.body.email!==''?req.body.email:undefined,
+			username: req.body.username!==''?req.body.username:undefined,
+			password: req.body.password!==''?req.body.password:undefined,
+			dob: req.body.dob!==''?req.body.dob:undefined,
+			age: req.body.age!==''?req.body.age:undefined,
+		}
+		console.log("Data: ", data);
 		try{
 			const user = await database.getUser(data.username, true);
 			if (user){
-				res.status(400).send({error:"user already exists"})
+				res.send({error:"user already exists"})
 				return;
 			}
 			const userId = await database.createUser(data);
@@ -26,7 +31,10 @@ module.exports = {
 		}
 	},
 	login_user: async(req, res) => {
-		const data = req.body;
+		const data = {
+			username: req.body.username !== '' ? req.body.username : undefined,
+			password: req.body.password !== '' ? req.body.password : undefined,
+		}
 		try{
 			const user = await database.getUser(data.username, true);
 			if (user){
@@ -38,12 +46,11 @@ module.exports = {
 					res.status(200).send({message: true, 'token': token, 'user': user})
 					return;
 				}
-				res.status(401).send({ error: "invalid password" });
+				res.send({ error: "password" });
 				return;
 			}
-			return res.status(400).send({ error: "user does not exist" });
+			return res.send({ error: "user" });
 		}catch(error){
-			console.log("The Error Is: ", error)
 			res.sendStatus(500);
 			return;
 		}

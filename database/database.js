@@ -59,7 +59,7 @@ module.exports = {
 	createUser: async(data) => {
 		const new_user = new User({
 			username: data.username,
-			age: 25,
+			age: data.age,
 			email: data.email,
 			profile_picture: "default.webp",
 			cover_photo: "cover_default.webp",
