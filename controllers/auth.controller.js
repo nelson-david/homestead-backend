@@ -35,10 +35,10 @@ module.exports = {
 					const token = await genAccessToken({
 						_id: user._id, email: user.email, username: user.username
 					}, res.config.TOKEN_SECRET);
-					res.send({message: true, 'token': token, 'user': user})
+					res.status(200).send({message: true, 'token': token, 'user': user})
 					return;
 				}
-				res.status(400).send({ error: "invalid password" });
+				res.status(401).send({ error: "invalid password" });
 				return;
 			}
 			return res.status(400).send({ error: "user does not exist" });
