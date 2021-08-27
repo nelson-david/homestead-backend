@@ -13,7 +13,7 @@ module.exports = {
 		console.log("Data:", data);
 		
 		try{
-			const user = await database.getUser(data.username);
+			const user = await database.getUser(data.username, true);
 			if (user){
 				res.status(400).send({error:"user already exists"})
 				return;

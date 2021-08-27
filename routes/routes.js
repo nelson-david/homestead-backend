@@ -34,7 +34,8 @@ const appRoute = (database, config) => {
 	// User Route
 	router.get("/current_user/", authToken, user_controller.current_user);
 	router.get("/user/:username/get/", authToken, user_controller.single_user);
-	router.post("/user/:username/settings/general", authToken, user_controller.general_settings);
+	router.post("/user/:username/settings/general/", authToken, user_controller.general_settings);
+	router.put("/user/:username/follow/", authToken, user_controller.follow_user);
 
 	// Post Route
 	router.post("/post/add/", authToken, post_controller.add_post);
